@@ -1,0 +1,74 @@
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+</head>
+<body>
+<h1>
+Prog1 Géptermi ZH, 2018.05.29.
+</h1>
+
+ha nem latszanak az ekezetek, nyisd meg Firefoxban, vagy allitsd at UTF8-ra a kodolast.
+<h2> 1.feladat </h2>
+
+Egy kollégiumban wifi fejlesztés esedékes. A kollégium saját forrásból olcsó, egyszerű eszközök beszerzését vállalja, minden emeletre egyet, de nyitott arra, hogy ha a lakók beszállnak a költségekbe, akkor drágább access pointokat is vásárol. Ennek a lebonyolításához kell szoftvert csinálni.
+
+<h3> a) Alapfeladat</h3> 
+
+<font color=red>Ez a feladatrész a beugró, ha ez nem készül el, a ZH érvénytelen.</font> <p>
+
+Lehet jelentkezni lakóknak név és emelet megjelölésével, hogy a drágább access point vásárlásában részt vesznek. A költségeket úgy állapítják meg, hogy az olcsó és a drága eszköz árának különbözetét annyi felé osztják, ahányan a szponzorálást vállalják az adott szinten. Írj programot, ami tartalmaz olyan típust, ami tárolja a szükséges adatokat, lehet kezdetben megadni az emeletek számát, az eszközök árát, és lehessen bármikor jelentkezni (név+emelet), lekérdezni az összes adatot és hogy kinek mennyit kell fizetnie (dump), megrendeléshez lekérni a hogy hány darab milyen eszköz kell, és jelentkezés visszavonását csak névvel (például ha valaki egyedül marad egy emeleten, és ezt a költséget nem tudja megengedni magának). Feltehető, hogy a név egyértelműen azonosít bárkit a kollégiumban.
+
+
+
+<p>
+Egy lehetséges példa kód:
+
+<pre><tt>
+Koli k(8, 12000, 58000); //8 emelet (+földszint), 12000 az olcsó, 58000 a drága eszköz ára
+k.dump(); // semmi
+k.jelentkezes(3, "Kis Balázs");
+k.jelentkezes(4, "Nagy Juli");
+k.jelentkezes(4, "Fekete Zsolt");
+k.dump(); // három tétel, Kis Balázs 46000, Nagy Juli és Fekete Zsolt fejenként 23000 
+k.megrendeles(); // 7 olcsó és 2 drága
+k.visszavon("Kis Balázs");
+k.megrendeles(); // 8 olcsó és 1 drága
+</tt></pre>
+
+
+<p>
+Az érvényességhez tehát az alábbiaknak kell teljesülniük
+<li> Jelentkezés emelet és név adatokkal
+<li> Visszavonás csak név alapján
+<li> Helyes költségek kiszámítása és kiírása bármikor
+<li> Helyes megrendelés kiszámítása és kiírása bármikor
+
+<p>
+Az érvényességhez NEM szükséges interaktivitás, menü, grafikus felület. Érdemes inkább olyan main() függvényt mutatni, amivel tesztelhető az adatszerkezet működésének helyessége.
+
+
+<h3> b) Nagyobb választék </h3>
+
+Nem csak olcsó és drága eszköz lehet, hanem akármilyen konkrét típus hozzáadható névvel és árral. A legolcsóbb modell az alapmodell, ennek a költségét adja a kollégium. A jelentkezésekkor az eszköz nevét is meg kell adni. Ha jelentkezéskor az alapmodellt jelöli meg valaki, ne változzon meg semmi, az eleve jár, nem kell érte fizetni. Egy adott emeletre az az eszköz kerül, amelyik a legdrágább azok közül amikre az emeleten lakók közül jelentkeztek. A költségek eloszlása úgy történik, hogy az olcsóbb, de nem alapmodell eszközökre szavazók úgy fizetnek, mintha minden szavazó az általuk választott eszközre szavazott volna a jelentkezők közül, a legdrágább eszközre szavazók pedig a maradékot kell egyenlő arányban kipótolják. Például:
+
+Például:
+<pre>
+lakó neve | eszköz ára (különbözet az alapmodelltől)
+A | 12
+B | 24
+C | 36
+D | 36
+</pre>
+Ilyenkor az emelet által fizetendő ár a 36, ebből A fizet 12/4=3-at, B 24/4=6-ot, és C és D (36-(3+6))/2 = 13.5-t
+
+A jelentkezések ugyanúgy visszavonhatóak maradnak, bármikor meg kell tudni mutatni a konkrét megrendelést eszköz neve és darabszáma formában, és a jelentkezőkhöz tartozó költségeket is.
+
+<h3> c) Közös helységek </h3>
+
+A program viselkedjen jól negatív emeletekkel is, ahol csak klubhelységek vannak, és jelenjen meg a "HÖK", mint speciális megrendelő, aki több emeleten is megjelenhet megrendelőként, viszont nem kell tudni visszavonni a megrendeléseit. Közös helységek nem csak negatív emeleteken lehetnek, tehát a HÖK szerepelhet a többi jelentkezéssel egybeeső emeleteken is. Természetesen feltehető, hogy nem lakik HÖK nevű ember egyébként a kollégiumban. A költségek kiszámításánál szabad mutatni a HÖK külön-külön költéseit, de kötelező az összes HÖK költséget is feltüntetni.
+
+<h2> Pontozás </h2>
+
+A ZH érvényes, ha az 1.feladat a) része működik. A tökéletes a) b) és c) feladatrészek megoldásai 10+10+10 pontot érnek, +10 pont kapható a félévben tanult kódminsőget illető nyelvi elemek használatáért (pl. láthatóságszabályozás), ezt felülről korlátozza a funkcióra kapott összpontszám.
+10 pont szerezhető a kiegészítős feladatból. 10 pontot ér a grafika. Ez összesen 60 pont.
+
+</body>

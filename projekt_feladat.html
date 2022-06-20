@@ -1,0 +1,60 @@
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+</head>
+<body>
+<h1>
+Prog1 Géptermi ZH, 2017.05.29.
+</h1>
+
+<h3> STL feladat </h3>
+
+<h4> Alapfeladat</h4>
+
+Egy projekt szervezéséhez kell segítséget nyújtani. A projekt több részfeladatból áll, ezeket a nevükkel azonosítjuk. A részfeladatokhoz kulcsembereket és találkozókat lehet rendelni. Egy kulcsember akár több részfeladathoz is rendelhető, de egyszerre két találkozón nem tud megjelenni. Minden találkozón a részfeladat minden kulcsemberének részt kell vennie.
+
+Az A) feladatban feltételezhető, hogy a legelső találkozó bejegyzése előtt megtörténik minden kulcsember hozzárendelés. A találkozó megadásánál a részfeladatot adjuk meg, és hogy a projekt hanyadik napján esedékes. Egy részfeladatnak egy napon csak egy találkozója lehet.
+
+<p>
+
+<tt>
+<br>Projekt p;
+<br>p.uj_reszfeladat("karbantartas");
+<br>p.uj_reszfeladat("tervezes");
+<br>p.uj_reszfeladat("marketing");
+<br>p.kulcsember("karbantartas","Tibi");
+<br>p.kulcsember("tervezes","Tibi");
+<br>p.kulcsember("tervezes","Zsofi");
+<br>p.kulcsember("marketing","Lajos");
+<br>p.uj_talalkozo("tervezes", 12);
+<br>p.uj_talalkozo("marketing", 12);
+<br>p.uj_talalkozo("tervezes", 13);
+<br>p.uj_talalkozo("karbantartas", 13); //Ne jegyezze fel, írjon ki hibaüzenetet a kulcsember nevével. Maxpontért visszatérési értékben is jelezni kell a sikerességet, de anélkül is érvényes
+<br>p.teljes_naptar_kiir(); //megjelenik valamilyen formaban, hogy melyik nap mi tortenik
+</tt>
+
+<p>
+Az adatok helyes nyilvántartása mellett tehát az A) feladat legfontosabb szolgáltatása az, hogy észreveszi a személyi ütközést, és a találkozót ilyenkor nem jegyi meg, annak nincs nyoma a naptár kiírásakor, csak a többi bejegyzésnek. <b>Figyelem</b>, ennek a feladatnak a teljesítése nélkül nem érvényes a ZH.
+
+<h4> B rész </h4>
+
+Lehessen utólag is hozzáadni kulcsembert a részfeladathoz. Ilyenkor nem csak azt várjuk el, hogy az új kulcsember hozzárendelés utáni ütközések helyes kezelése működik, de azt is, hogy a kulcsember hozzárendelés pillanatában adjon hibaüzenetet akkor, ha a már fixált és eddig akadálytanul lebonyolítható találkozók között lesz ütközés az új kulcsember hozzárendelése miatt. Ilyenkor írja ki, hogy melyik napra eső találkozóval (vagy találkozókkal) van probléma.
+
+<h4> C rész </h4>
+
+Két kényelmi szolgáltatás van a C részben. Lehessen megadni egy napot a projektben, és egy szolgáltatás adja meg az aznapi teendőket személyenként, és ha aznap nincs találkozója valakinek, akkor a legközelebbi esedékest írja ki. Lehessen továbbá fájlba elmenteni az összes adatot, és visszaolvasni. (5+5 pont)
+
+<h3> Grafikus feladat </h3>
+
+A mellékelt grafikus programot kell utánozni. Nem a pixel pontos reprodukcióra kell törekedni, hanem felismerni a működés szabályát és az elvet implementálni.
+
+<h3> Kiegészítős feladat <h3>
+
+A mellékelt kiegészítős feladatban elért pontszám a megszerzett pontszám erre a feladatra. A kiírt pontszám akkor is érvényes, ha néhány ellenőrzés feltétele nem teljesül. Szabad komment blokkot is hagyni a main()-ben, de csak a kezdeti komment blokk elejének lejjebb tolásával.
+
+<h3> Pontozás </h3>
+
+A ZH érvényes, ha az 1.feladat a) része működik. A tökéletes a)
+b) és c) feladatrészek megoldásai 10+10+10 pontot érnek plusz 10 pontnyi kód elegancia, tehát az STL feladat 40 pont. 10 pont
+szerezhető a kiegészítős feladatból. 10 pontot ér a grafika.  Ez összesen 60 pont.
+
+</body>

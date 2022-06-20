@@ -1,0 +1,70 @@
+<head>
+
+</head>
+<body>
+<h1>
+Prog1 Géptermi ZH, 2019.05.24.
+</h1>
+
+
+<h2> 1.feladat </h2>
+
+Egy társasjátékban a játékosok képességkártyákat játszhatnak ki, amivel képességet szereznek vagy váltanak le.
+
+<h3> a) Alapfeladat</h3> 
+
+<font color=red>Ez a feladatrész a beugró, ha ez nem készül el, a ZH érvénytelen.</font> <p>
+
+Oldd meg a kártyák kijátszását, ahol a programnak kezelnie kell, hogy a játékosnak milyen aktuális képességei vannak. A képességeket kategóriákra osztjuk, egyszerre egy kategóriából egy képességkártya lehet aktív. Egy kártya egyszerre több kategóriába is tartozhat, pl. egy "teljes páncél" kártya egyszerre lehet a mellvért és a sisak kategóriában.
+
+
+
+
+<p>
+Egy lehetséges példa kód:
+
+<pre><tt>
+Jatekos j;
+Kartya k1("Csizma");
+k1.kategoria_hozzaad("labbeli");
+Kartya k2("Szandal");
+k2.kategoria_hozzaad("labbeli");
+Kartya k3("Kupak");
+k3.kategoria_hozzaad("sisak");
+Kartya k4("Buvarruha");
+k4.kategoria_hozzaad("sisak");
+k4.kategoria_hozzaad("labbeli");
+j.kijatszik(k1);
+j.kepesseg_kiir(); // labbeli: Csizma
+j.kijatszik(k3);
+j.kepesseg_kiir(); // labbeli: Csizma, sisak: Kupak
+j.kijatszik(k2); // kidobni: Csizma
+j.kepesseg_kiir(); // labbeli: Szandal, sisak: Kupak
+j.kijatszik(k4); // kidobni: Szandal, Kupak
+j.kepesseg_kiir(); // labbeli: Buvarruha, sisak: Buvarruha
+</tt></pre>
+
+
+<p>
+Az érvényességhez tehát az alábbiaknak kell teljesülniük
+<li> kártya képességek kezelése
+<li> játékos képességek kezelése
+
+<p>
+Az érvényességhez NEM szükséges interaktivitás, menü, grafikus felület. Érdemes inkább olyan main() függvényt mutatni, amivel tesztelhetõ az adatszerkezet mûködésének helyessége.
+
+
+<h3> b) Feltételes kártyák, másik játékos elleni kártyák </h3>
+
+Lehessen olyan kártyákat definiálni, amik csak akkor játszhatóak ki, ha a játékos valamely képessége aktív. Demonstráld a kijátszás hibaüzenetével az ellenõrzést. Egy kártya kijátszható lehessen másik játékosra: képesség megváltoztatása, megszüntetése.
+
+<h3> c) Értékek </h3>
+
+A képességekhez rendeljünk mértéket, és a kártyákhoz számokat, például a "Szandál" 1-es lábbeli, a "Csizma" 2-es. A képesség kiíró az értékeket is írja ki. Legyen egy függvénye a játékosnak, amelyik kártyák egy halmazából kiválasztja a leghasznosabbat a jelenlegi állapotához képest. Ez a saját értékek ellenféllel szembeni maximalizálását célozza.
+
+<h2> Pontozás </h2>
+
+A ZH érvényes, ha az 1.feladat a) része mûködik. A tökéletes a) b) és c) feladatrészek megoldásai 10+10+10 pontot érnek, +10 pont kapható a félévben tanult kódminsõget illetõ nyelvi elemek használatáért (pl. láthatóságszabályozás), ezt felülrõl korlátozza a funkcióra kapott összpontszám.
+10 pont szerezhetõ a kiegészítõs feladatból. 10 pontot ér a grafika. Ez összesen 60 pont.
+
+</body>

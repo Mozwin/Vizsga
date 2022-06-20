@@ -1,0 +1,85 @@
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+</head>
+<body>
+<h1>
+Prog1 Nyílthelyi, 2020. 06. 03.
+</h1>
+
+ha nem latszanak az ekezetek, nyisd meg Firefoxban vagy Chromeban, vagy allitsd at UTF8-ra a kodolast.
+
+<h2> 1.feladat </h2>
+
+Brazil szappanoperát szeretnénk gyártani, amiben a szereplők közötti viszonyok változásai a történések. 
+
+<h3> a) Alapfeladat</h3> 
+
+Az alapfeladatban megadható egy adag viszony, három szóval: az állapot leírására való szó, az állapot kezdetére utaló kifejezés, és a viszony befejeződésére vonatkozó kifejezés. Ezek lesznek a lehetséges viszonyok a szereplők között. Két adott szereplő között egyszerre csak egyféle viszony lehet.
+
+A forgatókönyvet a szereplők felsorolásával kezdjük, és megadjuk a viszonyokat. Az alapfeladatokban feltételezhető, hogy a viszonyok leírásának megkezdését az összes szereplő megadása megelőzi. Két szolgáltatást kell elkészíteni: egy szereplő állapotának kiírását, ami az aktív viszonyainak felsorolását jelenti, a semleges (semmilyen) viszonyokat kihagyva. A másik szolgáltatás a forgatókönyvön dolgozók segítésére az adott állapotban lehetséges események felsorolása: ezek lehetnek meglevő viszonyok befejeződései, illetve ha valakivel semleges a viszonya egy szereplőnek, akkor valamelyik viszony kezdete történhet meg. Valamelyik viszonyból másik viszonyba nem történik átalakulás.
+
+<p>
+A használni való kód:
+
+<pre><tt>
+    Viszony baratsag("baratok","osszebaratkoznak","elhidegulnek");
+    Viszony szerelem("szerelmesek","egymasba szeretnek","kiabrandulnak egymasbol");
+    Viszony ellenseg("ellensegek","osszevesznek","kibekulnek");
+    list &lt;Viszony&gt; viszonyok;
+    viszonyok.push_back(baratsag);viszonyok.push_back(szerelem);viszonyok.push_back(ellenseg);
+    Forgatokonyv f;
+    f.uj_szereplo("Esmeralda");
+    f.uj_szereplo("Leoncio");
+    f.uj_szereplo("Carlos");
+    f.uj_szereplo("Carina");
+    f.viszony("Esmeralda","Leoncio",szerelem);
+    f.viszony("Carlos","Leoncio",ellenseg);
+    f.viszony("Esmeralda","Carina",baratsag);
+    f.allapot("Esmeralda"); 
+    f.lehetseges_esemenyek(viszonyok);
+</tt></pre>
+
+Aminek a kimenete: 
+<pre>
+Esmeralda es Carina baratok
+Esmeralda es Leoncio szerelmesek
+ - Carina es Carlos osszebaratkoznak
+ - Carina es Carlos egymasba szeretnek
+ - Carina es Carlos osszevesznek
+ - Carina es Esmeralda elhidegulnek
+ - Carina es Leoncio osszebaratkoznak
+ - Carina es Leoncio egymasba szeretnek
+ - Carina es Leoncio osszevesznek
+ - Carlos es Esmeralda osszebaratkoznak
+ - Carlos es Esmeralda egymasba szeretnek
+ - Carlos es Esmeralda osszevesznek
+ - Carlos es Leoncio kibekulnek
+ - Esmeralda es Leoncio kiabrandulnak egymasbol
+</pre>
+
+<p>
+Az érvényességhez tehát az alábbiaknak <b>kell teljesülniük</b>
+<li> az itt megosztott példaprogram <b> változtatás nélkül </b> szerepel a program main() függvényében, és az fut. Ezt egy esetleges bemutató keretében bővíteni lehet.
+<li> helyes választ ad a példa esetekben, vagyis nem sorol fel lehetetlen eseményeket vagy hibás állapotot, illetve nem hagy ki helyes tételt.
+<li> helyes választ ad akkor is, ha több vagy kevesebb fajta viszonyt használunk
+<li> helyes választ ad akkor is, ha több vagy kevesebb szereplőt használunk
+
+<p>
+Az érvényességhez a feltöltött program main() függvényben a megadott kód szakasznak változtatás nélkül kell szerepelniük. Képernyőmegosztásos bemutatáskor esetleg változtathatjuk a fentiek szerint. feltételezhető, hogy legalább egy szereplő és legalább egyféle viszony létezik.
+
+
+<h3> b) Forgatókönyv gyártás </h3>
+
+A program beállítható darab részt gyártson véletlenszerű forgatókönyvből, beállítható mennyiségű eseménnyel részenként. Az eseményeknek lehetségesnek kell lenniük, pl. nem békülhetnek ki olyanok, akik korábban nem vesztek össze, és viszonyok továbbra sem alakulhatnak át közvetlenül egymásba.
+
+<h3> c) Kognitív réteg </h3>
+
+Az egyes szereplőknek a többi szereplő egymás közti viszonyairól való ismerete lehet részleges, és a lehetséges eseményeket ki kell bővíteni azzal, hogy megtudja valamely olyan karakterpáros viszonyát, amiről elavult információval rendelkezett. Ezek "Esmeralda megtudja, hogy Carla és Esteban kibékültek". Fontos, hogy csak akkor számít eseménynek ez, ha a korábbi állapottól való eltérés van az ismeretekben. A könnyebb tesztelhetőség kedvéért készíts olyan tagfüggvényt is, amiben minden szereplő képbe kerül a viszonyokról, és a kezdeti állapot létrehozása után használd is.
+
+
+<h2> Pontozás </h2>
+
+A ZH érvényes, ha az 1.feladat a) része működik. A tökéletes a) b) és c) feladatrészek megoldásai 10+10+10 pontot érnek, +10 pont kapható a félévben tanult kódminsőget illető nyelvi elemek használatáért (pl. láthatóságszabályozás), ezt felülről korlátozza a funkcióra kapott összpontszám.
+10 pont szerezhető a kiegészítős feladatból. 10 pontot ér a grafika. Ez összesen 60 pont.
+
+</body>

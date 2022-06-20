@@ -1,0 +1,74 @@
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+</head>
+<body>
+<h1>
+Prog1 Géptermi pótZH, 2017.06.12.
+</h1>
+
+<h3> STL feladat </h3>
+
+<h4> Alapfeladat</h4>
+
+A feladat gyógyszerekre való érzékenység nyilvántartása. A gyógyszerek hatóanyagokat (egyet vagy többet) tartalmaznak. A páciensekről azt tudhatjuk, hogy melyik gyógyszer váltott ki érzékenységi reakciót, de nem tudjuk, hogy melyik hatóanyaga miatt, ezért minden lehetséges hatóanyagot ellenjavalltnak tekintünk.
+
+<p>
+A programnak tárolnia kell a gyógyszerek hatóanyagaira és a páciensek érzékenységére utaló adatokat, és kérdésre választ kell adnia az ellenjavalltságra, indoklással, szöveges formában. Lásd az alábbi példát:
+<tt>
+<verbatim>
+
+<br>Nyilvantarto n;
+<br>n.uj_gyogyszer("gy1");
+<br>n.uj_gyogyszer("gy2");
+<br>n.uj_gyogyszer("gy3");
+<br>n.hatoanyag("gy1", "h1");
+<br>n.hatoanyag("gy1", "h2");
+<br>n.hatoanyag("gy2", "h2");
+<br>n.hatoanyag("gy3", "h1");
+<br>n.hatoanyag("gy3", "h3");
+<br>n.uj_paciens("Peti");
+<br>n.uj_paciens("Vali");
+<br>n.erzekeny("Peti", "gy2");
+<br>cout << n.ellenjavallt("Peti", "gy3") << endl; // "nem"
+<br>cout << n.ellenjavallt("Peti", "gy1") << endl; // "igen: h2"
+<br>n.erzekeny("Vali", "gy1");
+<br>cout << n.ellenjavallt("Vali", "gy2") << endl; // "igen: h2"
+<br>cout << n.ellenjavallt("Vali", "gy3") << endl; // "igen: h1"
+<br>cout << n.ellenjavallt("Vali", "gy1") << endl; // "igen: h1 h2", a sorrend mindegy
+<br>
+</verbatim>
+</tt>
+
+<p>
+Az alapfeladat részben feltételezhető, hogy a hatóanyagokra vonatkozó információk az érzékenység tényének megállapításakor már meg vannak adva, és minden szolgáltatás helyes adatokkal (létező gyógyszer, létező páciens) történik.
+
+<h4> B rész </h4>
+
+A sorrendre vonatkozó feltételezéseink közül az alapfeladathoz képest az változik meg, hogy az érzékenység megadása után még felvehetünk hatóanyagot bármely gyógyszerhez, mielőtt az ellenjavalltságot megkérdezzük.
+<p>
+
+A program adjon hibaüzenetet, ha nem létező gyógyszerhez akarunk hatóanyagot adni, vagy nem létező személyhez érzékenységről szóló adatot. Adjon figyelmeztetést, ha bármely ellenjavallat futtatásakor létezik olyan gyógyszer, amihez egyetlen hatóanyagot sem rendeltünk.
+
+<h4> C rész </h4>
+
+A program mentsen el minden adatot fájlokba. A gyógyszerek hatóanyagairól külön fájl készüljön, és külön tagfüggvénnyel is lehessen kimenteni-betölteni. A személyekről készült fájlokban a neveket titkosítva kell kiírni a személyiségi jogokra való tekintettel. A titkosítás annyit jelent, hogy a szövegfájlban ne legyen triviálisan olvasható a név, egyébként tetszőleges kódolás megengedett, néhány példa:
+<br> jó: Vali - Wbmj  
+<br> nem jó: Vali - Vali  
+<br> nem jó: Vali - ***Vali***  
+
+
+<h3> Grafikus feladat </h3>
+
+A mellékelt grafikus programot kell utánozni. Nem a pixel pontos reprodukcióra kell törekedni, hanem felismerni a működés szabályát és az elvet implementálni.
+
+<h3> Kiegészítős feladat </h3>
+
+A mellékelt kiegészítős feladatban elért pontszám a megszerzett pontszám erre a feladatra. A kiírt pontszám akkor is érvényes, ha néhány ellenőrzés feltétele nem teljesül. Szabad komment blokkot is hagyni a main()-ben, de csak a kezdeti komment blokk elejének lejjebb tolásával.
+
+<h3> Pontozás </h3>
+
+A ZH érvényes, ha az 1.feladat a) része működik. A tökéletes a)
+b) és c) feladatrészek megoldásai 10+10+10 pontot érnek plusz 10 pontnyi kód elegancia, tehát az STL feladat 40 pont. 10 pont
+szerezhető a kiegészítős feladatból. 10 pontot ér a grafika.  Ez összesen 60 pont.
+
+</body>

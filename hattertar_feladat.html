@@ -1,0 +1,68 @@
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+</head>
+<body>
+<h1>
+Prog1 Nyílthelyi, 2020. 05. 22.
+</h1>
+
+ha nem latszanak az ekezetek, nyisd meg Firefoxban vagy Chromeban, vagy allitsd at UTF8-ra a kodolast.
+
+<h2> 1.feladat </h2>
+
+Egy PC lehetséges konfigurációját úgy adjuk meg, hogy kategóriánként megnevezzük a beállítást. Kategória például a háttértár, vagy a processzor. A háttértár kategória lehetséges értékei lehetenek mondjuk a Sandisk vagy a Samsung. Egy kategórián belül az értékek egyértelműek, de egy érték szerepelhet több kategóriában is. A rendszer, amit építeni kell, először a kategóriák összes lehetséges értékét felépíti, majd egy értékekből álló sorozatot kell elemezzen.
+<p>
+Példa: háttértár { Sandisk, Samsung, Toshiba, WD }, processzor {Intel, AMD}, monitor {Samsung, LG, Toshiba}
+<p>
+Látható a példában, hogy a "Samsung" és "Toshiba" elem több kategóriában is szerepel. 
+
+<h3> a) Alapfeladat</h3> 
+
+Az alapfeladatnak három kategóriás esetben kell működnie. A program a kategóriák ismeretében fogad egy felsorolást, amiben az összes kategória pontosan egy elemet tartalmaz. El kell döntenie a programnak, hogy a felsorolásból egyértelműen kiderül-e, hogy melyik kategóriából melyik értékről van szó. Például a példa szerinti "Samsung, Samsung, AMD" egyértelmű, "Intel, Samsung, WD" is egyértelmű, de az "AMD, Samsung, Toshiba" nem, mert nem lehet tudni, hogy melyik Samsung/Toshiba háttértár és melyik monitor.
+ 
+<p>
+A használni való kód:
+
+
+<pre><tt>
+    Konfig k;
+    k.uj_kategoria("hattertar");
+    k.uj_kategoria("processzor");
+    k.uj_kategoria("monitor");
+    k.uj_elem("hattertar","Sandisk");
+    k.uj_elem("hattertar","Samsung");
+    k.uj_elem("hattertar","Toshiba");
+    k.uj_elem("hattertar","WD");
+    k.uj_elem("processzor","Intel");
+    k.uj_elem("processzor","AMD");
+    k.uj_elem("monitor","Samsung");
+    k.uj_elem("monitor","LG");
+    k.uj_elem("monitor","Toshiba");
+    cout << k.egyertelmu_e("Samsung","Samsung","AMD") << endl; // 1
+    cout << k.egyertelmu_e("Intel","Samsung","WD") << endl; // 1
+    cout << k.egyertelmu_e("AMD","Samsung","Toshiba") << endl; // 0
+</tt></pre>
+
+<p>
+Az érvényességhez tehát az alábbiaknak <b>kell teljesülniük</b>
+<li> az itt megosztott példaprogram <b> változtatás nélkül </b> szerepel a program main() függvényében, és az fut.
+<li> helyes választ ad a példára és a példa összes olyan módosítására, ahol a problémát legalább két kategóriában megjelenő, minden ilyen kategóriában együtt szereplő elemek okozzák (a példában a Samsung és Toshiba páros az együtt szereplő elemek)
+<p>
+Az érvényességhez a main() függvényben a megadott kódnak változtatás nélkül kell szerepelnie, és az elvárt módon működnie.
+
+
+<h3> b) Garantált egyértelműség </h3>
+
+Döntsd el, hogy lehet-e egyáltalán nem egyértelmű felsorolást csinálni egy adott kategóriarendszerrel. Ez nem csak három kategóriára kell működjön, hanem többel is, vagy kevesebbel is. 
+
+<h3> c) Általános megoldás </h3>
+
+Az alapfeladat három kategóriára történő megszorítása nélküli feladat: tetszőleges számú kategóriára működjön. Figyelem, ha a példát kiegészítjük egy negyedik kategóriával, pl. "alaplap {Intel, AMD}" , akkor a "Samsung, Samsung, AMD, AMD" is egyértelmű.
+
+
+<h2> Pontozás </h2>
+
+A ZH érvényes, ha az 1.feladat a) része működik. A tökéletes a) b) és c) feladatrészek megoldásai 10+10+10 pontot érnek, +10 pont kapható a félévben tanult kódminsőget illető nyelvi elemek használatáért (pl. láthatóságszabályozás), ezt felülről korlátozza a funkcióra kapott összpontszám.
+10 pont szerezhető a kiegészítős feladatból. 10 pontot ér a grafika. Ez összesen 60 pont.
+
+</body>

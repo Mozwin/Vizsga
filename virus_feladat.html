@@ -1,0 +1,108 @@
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+</head>
+<body>
+<h1>
+Prog1 Nyílthelyi, 2020. 06. 17.
+</h1>
+
+ha nem latszanak az ekezetek, nyisd meg Firefoxban vagy Chromeban, vagy allitsd at UTF8-ra a kodolast.
+
+<h2> 1.feladat </h2>
+
+A Pandemic nevű társasjáték néhány mechanizmusát kell majd implementálni.
+
+<h3> a) Alapfeladat</h3> 
+
+Az alapfeladatban vannak városok, az azokra jellemző vírustörzsekkel, és vannak a városok közötti kapcsolatok, amin keresztül a vírus terjedni is képes lehet. A játékszabály a következő: van egy olyan esemény, hogy a város fertőződik, ilyenkor a létrehozáskor megadott fajta vírustörzs jelenléte egy értékkel megnő. Ha egy városban már van három szintnyi vírus fertőződéskor, akkor "kitörés" történik, ami nem emeli háromnál feljebb az értéket a városban, de a kapcsolatokon keresztüli szomszédait megfertőzi az adott városra jellemző vírussal. Figyelem! Ez azt jelenti, hogy lehet egy városban többféle vírus, ha kitörés miatt olyan vírus is jött, amelyik nem helyben jellemző, és a kitörés eldöntésénél a város vírustartalma számít összesen.
+
+<p>
+A használni való kód:
+
+<pre><tt>
+int main()
+{
+    Pandemic p;
+p.uj_varos("London", "CODA-45");
+p.uj_varos("New York", "H1N1");
+p.uj_varos("Budapest", "CODA-45");
+p.uj_varos("Peking", "SARS-CoV-2");
+p.uj_kapcsolat("London", "Budapest");
+p.uj_kapcsolat("London", "New York");
+p.uj_kapcsolat("London", "Peking");
+p.uj_kapcsolat("Peking", "New York");
+p.uj_kapcsolat("Peking", "Budapest");
+p.fertozes("Budapest");
+p.fertozes("Budapest");
+p.fertozes("New York");
+p.fertozes("New York");
+p.fertozes("New York");
+p.allapot_kiir(); 
+//CODA-45 jelenlet> Budapest: 2, London: 0,
+//H1N1 jelenlet> New York: 3,
+//SARS-CoV-2 jelenlet> Peking: 0,
+///vagy
+// Budapest> CODA-45: 2,
+// New York> H1N1: 3,
+p.fertozes("Budapest");
+p.allapot_kiir(); 
+//CODA-45 jelenlet> Budapest: 3, London: 0,
+//H1N1 jelenlet> New York: 3,
+//SARS-CoV-2 jelenlet> Peking: 0,
+///vagy
+// Budapest> CODA-45: 3,
+// New York> H1N1: 3,
+
+p.fertozes("Budapest");
+p.fertozes("New York");
+p.allapot_kiir();
+//CODA-45 jelenlet> Budapest: 3, London: 1, Peking: 1, 
+//H1N1 jelenlet> London: 1, New York: 3, Peking: 1, 
+//SARS-CoV-2 jelenlet> Peking: 0,
+///vagy
+// Budapest> CODA-45: 3,
+// London> CODA-45: 1, H1N1: 1,
+// New York> H1N1: 3,
+// Peking> CODA-45: 1, H1N1: 1,
+
+p.fertozes_kezelese("London", "CODA-45");
+p.fertozes_kezelese("New York", "H1N1");
+p.allapot_kiir();
+//CODA-45 jelenlet> Budapest: 3, London: 0, Peking: 1, 
+//H1N1 jelenlet> London: 1, New York: 2, Peking: 1, 
+//SARS-CoV-2 jelenlet> Peking: 0,
+///vagy
+// Budapest> CODA-45: 3,
+// London> H1N1: 1,
+// New York> H1N1: 2,
+// Peking> CODA-45: 1, H1N1: 1,
+
+    return 0;
+}
+</tt></pre>
+
+
+<p>
+Az érvényességhez tehát az alábbiaknak <b>kell teljesülniük</b>
+<li> az itt megosztott példaprogram <b> változtatás nélkül </b> szerepel a program main() függvényében, és az fut. Ezt egy esetleges bemutató keretében bővíteni lehet.
+<li> helyes választ ad a példa esetekben, vagyis nem sorol fel nem létező tételt, nem hagy ki tételt és nem ismétli a tételeket (a felsorolások sorrendje tetszőleges, és a csoportosítása szabadon választható, tehát elfogadjuk a városonként felsorolt vírusokat és a vírusonként felsorolt városokat is)
+<li> jól működik a fertőződés és kitörés kezelése
+
+
+<p>
+Az érvényességhez a feltöltött program main() függvényben a megadott kód szakasznak változtatás nélkül kell szerepelniük. Képernyőmegosztásos bemutatáskor esetleg változtathatjuk a fentiek szerint. Az alapfeladatban feltételezhető, hogy nincs kitörésekből láncreakció, és megengedhető az is, ha a kiíráskor az alapértelmezett vírus neve megjelenik nulla mennyiséggel
+
+<h3> b) Láncreakció </h3>
+
+A kitörések mechanizmusának teljes implementálása, amikor kitörés történik, az beindíthat a szomszédos városban is kitörést, ami továbbiakat is indíthat. A teljes láncreakció kezelése a B) feladat.
+
+<h3> c) Játékosok mozgásai </h3>
+
+Lehessen játékost tenni városba, és adott játékosról megkérdezni, hogy milyen lépéslehetőségei vannak, azok hatásainak felsorolásával. A játékban egy körben négy darab akció lehetséges több féle akcióból, amiből kettő lehetőséget kell implementálni: fertőzés kezelését és utazást szomszéd városba. A feladat itt tehát az egymást követő négy lépés összes lehetőségének felsorolása a kifejtett hatásokkal (melyik városban mennyi fertőzés marad). Szabad csak az érintett városokat felsorolni, de szabad a teljes kiíró szolgáltatást is használni.
+
+<h2> Pontozás </h2>
+
+A ZH érvényes, ha az 1.feladat a) része működik. A tökéletes a) b) és c) feladatrészek megoldásai 10+10+10 pontot érnek, +10 pont kapható a félévben tanult kódminsőget illető nyelvi elemek használatáért (pl. láthatóságszabályozás), ezt felülről korlátozza a funkcióra kapott összpontszám.
+10 pont szerezhető a kiegészítős feladatból. 10 pontot ér a grafika. Ez összesen 60 pont.
+
+</body>

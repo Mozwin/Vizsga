@@ -1,0 +1,111 @@
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+</head>
+<body>
+<h1>
+Prog1 Géptermi pótZH, 2018.06.12.
+</h1>
+
+ha nem latszanak az ekezetek, nyisd meg Firefoxban, vagy allitsd at UTF8-ra a kodolast.
+
+<h2> 1.feladat </h2>
+
+Egy fényezőműhelyben kell a festékeket nyilvántartani.
+
+<h3> a) Alapfeladat</h3> 
+
+<font color=red>Ez a feladatrész a beugró, ha ez nem készül el, a ZH érvénytelen.</font> <p>
+
+A rendszernek tárolnia kell azt, hogy melyik fajta festékből (a neve azonosítja) hány doboz van raktáron, és melyik doboz hány százalékig van még meg. Egy festési munkához lehet tudni, hogy milyen fajta festékekből mennyi kell (százalékban megadva a mennyiséget). El kell tudni dönteni, hogy egy adott festési munkához van-e elegendő anyag raktáron, ha megköveteljük hogy egy munkához egy festékből csak egy dobozt akarunk felhasználni, méghozzá mindig azt a dobozt, amelyikben a lehető legkevesebbel van több festék a szükségesnél.
+ 
+<p>
+Egy lehetséges példa kód:
+
+<pre><tt>
+Raktar r;
+r.ujFestek("A");
+r.ujFestek("A");
+r.ujFestek("B");
+r.dump(); //A: 100 100   B:60
+Festes f1;
+f1.kellBele("A", 30);
+f1.kellBele("B", 40);
+Festes f2;
+f2.kellBele("A",60);
+f2.kellBele("B",10);
+cout << r.elegendo(f1) << endl; //1
+r.fest(f1);
+r.dump(); //A: 70 100  B:60
+cout << r.elegendo(f2) << endl; //1
+r.fest(f2);
+r.dump(); //A: 10 100  B:50
+cout << r.elegendo(f2) << endl; //1
+r.fest(f2);
+r.dump(); //A: 10 40  B:40
+cout << r.elegendo(f2) << endl; //0
+cout << r.elegendo(f1) << endl; //1
+r.fest(f1);
+r.dump(); //A: 10 10  B:0
+
+
+</tt></pre>
+
+Feltételezhető, hogy minden festés legalább egy fajta festékből áll, a festéseknél megadott mennyiségek nem negatív egész számok, és nem haladják meg a 100-at. Ha egy festék kifogyott, akkor nem a 0-ás értéket kell mutatnia a dump()-nak, hanem el kell tüntetnie azt a dobozt.
+
+<p>
+Az érvényességhez tehát az alábbiaknak kell teljesülniük
+<li> bármikor jöhet új festék és bármikor lehet festeni olyat amihez van elég anyag
+<li> bármikor helyesen kell válaszolni arra, hogy egy festéshez van-e elég anyag
+<li> Egy festés legalább egyfajta, maximum akár az összes fajta festékből állhat.
+<li> A program írjon ki hibaüzenetet, ha olyan festést kezdeményeznek, amely akár ismeretlen nevű festéket, akár nem elegendő mennyiséget tartalmaz. 
+
+<p>
+Az érvényességhez NEM szükséges interaktivitás, menü, grafikus felület. Érdemes inkább olyan main() függvényt mutatni, amivel tesztelhető az adatszerkezet működésének helyessége.
+
+
+<h3> b) Összeönthető festékek </h3>
+
+Az alapfeladat megoldása mellett hosszú távon sok olyan doboz festék keletkezik, amelyikben kevés maradt, ezért egyre kevésbé valószínű, hogy valaha fel lesz használva, ezért a festékesdobozokat érdemes összeönteni. Minden festés elkészülte után a rendszer vizsgálja meg, hogy érdemes-e festékeket összeönteni, és ha igen, akkor tegye is meg. Festéket akkor legyen érdemes összeönteni, ha az összeönteni való dobozokban levő mennyiségek egyesével nem érik el a legkisebb festés mennyiségét sem, vagy összeöntve a 100-hoz hiányzó mennyiség kisebb ugyanennél a mennyiségnél.
+
+Például a B festék az f1 festések esetén (a legkisebb mennyiség az f2 miatt 10, vagyis az elvárt összeöntés utáni mennyiség >90)
+<pre>
+100 100 100 100 100
+60 100 100 100 100
+20 100 100 100 100
+20 60 100 100 100   //20+60 nem összeönthető, egyik sem kisebb mint 10 és 20+60=80 < 90
+20 20 100 100 100
+20 20 60 100 100
+20 20 20 100 100
+20 20 20 60 100
+20 20 20 20 100   //20+20+20+20=80   <   100-10=90, nincs összeöntés
+20 20 20 20 60    //20+20+20+20+20=100 >= 100-10, összeöntünk!
+100
+</pre>
+
+Másik példa az A festéknél, ahol a minimális mennyiség 30:
+<pre>
+100 100 100 100 100
+70 100 100 100 100
+40 100 100 100 100
+10 100 100 100 100
+10 70 100 100 100   //10+70 nem összeönthető, mert 70>=30
+10 40 100 100 100   //10+10 összeönthető, mert 10<30
+20 100 100 100    
+20 70 100 100    
+20 40 100 100    //20+10 összeönthető, mert 20<30 és 10<30
+30 100 100    
+100 100    
+</pre>
+
+
+<h3> c) Előrelátás </h3>
+
+Legyen egy olyan szolgáltatás, amelyik úgy bővíti a raktárkészletet, hogy bármely N egymást követő, előre nem tudható melyik festésre legyen elegendő nyersanyag. Az N szám legyen paraméterként megadható. Rendelni természetesen csak 100% bontatlan dobozt lehet. A maximumpontos megoldás nem rendel felesleges dobozt felül. Előfordulhat, nem kell rendelni semmit.
+
+
+<h2> Pontozás </h2>
+
+A ZH érvényes, ha az 1.feladat a) része működik. A tökéletes a) b) és c) feladatrészek megoldásai 10+10+10 pontot érnek, +10 pont kapható a félévben tanult kódminsőget illető nyelvi elemek használatáért (pl. láthatóságszabályozás), ezt felülről korlátozza a funkcióra kapott összpontszám.
+10 pont szerezhető a kiegészítős feladatból. 10 pontot ér a grafika. Ez összesen 60 pont.
+
+</body>

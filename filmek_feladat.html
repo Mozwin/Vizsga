@@ -1,0 +1,101 @@
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+</head>
+<body>
+<h1>
+Prog1 Nyílthelyi, 2020. 06. 17.
+</h1>
+
+ha nem latszanak az ekezetek, nyisd meg Firefoxban vagy Chromeban, vagy allitsd at UTF8-ra a kodolast.
+
+<h2> 1.feladat </h2>
+
+Filmek és címkéik kezelésével foglalkozunk.
+
+<h3> a) Alapfeladat</h3> 
+
+Az alapfeladat a filmek címkéit és a címkék közötti alias viszonyt kell kezelje. Két film hasonló, ha létezik közös címkéjük. Közös címkének számít az, ha mindkettőhöz hozzá van adva ugyanaz a címke, vagy az, ha olyan címkéjük van, amikről megadtuk, hogy egymás aliasai.
+
+<p>
+A használni való kód:
+
+<pre><tt>
+int main()
+{
+    Valasztek v;
+    v.uj("Casablanca");
+    v.uj("Titanic");
+    v.uj("The Guns of Navarone");
+    v.uj_cimke("Casablanca", "romantic");
+    v.uj_cimke("Casablanca", "war");
+    v.uj_cimke("Titanic", "romance");
+    v.uj_cimke("The Guns of Navarone", "war");
+    v.uj("Hirado"); // nincs cimke
+    v.mindent_kiir(); // Casablanca: [ romantic ] [ war ] , Hirado: , The Guns of Navarone: [ war ] , Titanic: [ romance ]
+    cout << v.hasonlit("Casablanca", "The Guns of Navarone") << endl; // 1;
+    cout << v.hasonlit("Casablanca", "Titanic") << endl; // 0;
+    v.alias("romantic", "romance");
+    v.mindent_kiir(); //Casablanca: [ romance romantic ] [ war ] , Hirado: , The Guns of Navarone: [ war ] , Titanic: [ romance romantic ]
+    cout << v.hasonlit("Casablanca", "The Guns of Navarone") << endl; // 1;
+    cout << v.hasonlit("Casablanca", "Titanic") << endl; // 1;
+    cout << v.hasonlit("The Guns of Navarone", "Titanic") << endl; // 0;
+    v.unalias("romantic", "romance");
+    cout << v.hasonlit("Casablanca", "Titanic") << endl; // 0;
+    cout << v.hasonlit("Hirado","Casablanca") << endl; // 0
+    v.mindent_kiir(); // Casablanca: [ romantic ] [ war ] , Hirado: , The Guns of Navarone: [ war ] , Titanic: [ romance ]
+
+ 
+
+    return 0;
+}
+</tt></pre>
+
+Aminek a kimenete: 
+<pre>
+
+Casablanca: [ romantic ] [ war ]
+Hirado:
+The Guns of Navarone: [ war ]
+Titanic: [ romance ]
+1
+0
+Casablanca: [ romance romantic ] [ war ]
+Hirado:
+The Guns of Navarone: [ war ]
+Titanic: [ romance romantic ]
+1
+1
+0
+0
+0
+Casablanca: [ romantic ] [ war ]
+Hirado:
+The Guns of Navarone: [ war ]
+Titanic: [ romance ]
+</pre>
+
+<p>
+Az érvényességhez tehát az alábbiaknak <b>kell teljesülniük</b>
+<li> az itt megosztott példaprogram <b> változtatás nélkül </b> szerepel a program main() függvényében, és az fut. Ezt egy esetleges bemutató keretében bővíteni lehet.
+<li> helyes választ ad a példa esetekben, vagyis nem sorol fel nem létező címkét, nem hagy ki címkét és nem ismétli a tételeket (a felsorolások sorrendje tetszőleges)
+<li> jól működik az alias kezelés, és látható a különbség a felsorolásban azon tételek között, amik eredetileg hozzáadott címkék és azok között, amik csak az alias viszony miatt vannak felsorolva
+
+
+<p>
+Az érvényességhez a feltöltött program main() függvényben a megadott kód szakasznak változtatás nélkül kell szerepelniük. Képernyőmegosztásos bemutatáskor esetleg változtathatjuk a fentiek szerint. Az alapfeladatban feltételezhető, hogy nincs hozzáadva explicit egy filmhez egy címke és annak aliasa is.
+
+<h3> b) Fejlesztett alias kezelés </h3>
+
+A program működjön szépen akkor is, ha explicit hozzáadjuk egy filmhez az alias címkét is: továbbra is csak egyszer írjon ki minden lehetséges címkét kiírásnál (eldöntheted, hogy csak az alias felsorolást tartod meg, vagy csak az explicit felsorolást tartod meg, de mindkét esetben működnie kell akkor, ha ugyanazon filmnél van explicit alias is, és olyan címke is, amihez van alias, de nincs explicit hozzáadva, ott az alapfeladat szerinti megjelenítésnek meg kell maradnia).
+
+<h3> c) Hasonlóság szerint rendezett felsorolás </h3>
+
+Írj szolgáltatást, amelyik egy filmhez megadja a hasonlók listáját úgy, hogy a sorrend a közös címkék száma szerinti (azonos címkeszámú tételek egymás közötti sorrendje mindegy). Ha van b) megoldásod is, akkor eldöntheted, hogy az explicit aliasok dupla hasonlóságot jelentenek-e, vagy sem.
+
+
+<h2> Pontozás </h2>
+
+A ZH érvényes, ha az 1.feladat a) része működik. A tökéletes a) b) és c) feladatrészek megoldásai 10+10+10 pontot érnek, +10 pont kapható a félévben tanult kódminsőget illető nyelvi elemek használatáért (pl. láthatóságszabályozás), ezt felülről korlátozza a funkcióra kapott összpontszám.
+10 pont szerezhető a kiegészítős feladatból. 10 pontot ér a grafika. Ez összesen 60 pont.
+
+</body>

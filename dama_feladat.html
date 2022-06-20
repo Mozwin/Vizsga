@@ -1,0 +1,79 @@
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+</head>
+<body>
+<h1>
+Prog1 Géptermi pótpótZH, 2018.06.26.
+</h1>
+
+ha nem latszanak az ekezetek, nyisd meg Firefoxban, vagy allitsd at UTF8-ra a kodolast.
+
+<h2> 1.feladat </h2>
+
+Dáma játékhoz kell készíteni segédfüggvényeket. A dámajátékok többféle szabállyal terjedtek el, olvasd figyelmesen a leírást, egy adott szabályrendszert adunk meg. 
+
+A dámában a játékosok a bábukat a sakktábla fekete mezőire helyezik az első két sorba 8-8 bábut. Egy bábu léphet átlósan előrefelé (az ellenfél felé) jobbra vagy balra, ha ott nincs másik bábu, vagy átlósan átugorhat bábut, ha a tőle előre jobbra vagy balra átlósan álló bábu mögött ugyanabban az irányban a következő mező üres. Ha saját bábut ugrik át a játékos, akkor az átugrott bábu megmarad, ha az ellenfél bábuját ogorja át, akkor a bábu kiesik. A dámajáték lépésének legérdekesebb része az, hogy az ugrás lehetőséget ad arra, hogy a bábu még ebben a lépésben újra ugorjon (simán csak szomszédos átlós mezőre már nem léphet) amennyiben az ugrás célpozíciójáról az előző szabály szerint újra ugorhat. Nem kötekező ugrani, a játékos akkor áll meg amikor akar. Ezzel a lehetőséggel a dámában egyetlen lépéssel több bábut is le lehet ütni. A sok ugrásos lépésnél oda kell figyelni arra, hogy az ellenfél bábuját a leütés pillanatában le kell venni, nem szabad körbeugrálás során újra igénybe venni átugrásra. 
+<p>
+<img src="a_feladat_1.jpg">
+<p>
+A dámajátékok egy részében ütéskényszer van, mi ehhez az egyszerűség kedvéért nem fogunk ragaszkodni, tehát szabályos lesz a lépés akkor is, ha más lehetséges lépéssel többet lehet ütni.
+
+<h3> a) Alapfeladat</h3> 
+
+<font color=red>Ez a feladatrész a beugró, ha ez nem készül el, a ZH érvénytelen.</font> <p>
+
+Az alapfeladat az, hogy a dámajáték egyetlen játékoshoz tartozó bábuit lehessen feltenni a pályára, lépést lehessen összeállítani koordináta-sorozatból, és tudja ellenőrizni a program azt, hogy az a lépés szabályos-e, illetve egy lépés megtételét is el tudja végezni. Az alapfeladatban NINCS ütés, mert nincs még olyan adat, hogy melyik bábu melyik játékosé.
+
+ 
+<p>
+Egy lehetséges példa kód:
+
+<pre><tt>
+Dama d;
+d.uj_babu(1,1); //x,y koordináták, az y nő az ellenfél felé
+d.uj_babu(0,0);
+d.uj_babu(2,0);
+Lepes lp(1,1); // az 1,1 koordinátán álló bábu akar majd lépni
+lp.lep(2,2); 
+cout << d.szabalyos_e(lp); // "1",  szabályos lépés, egy átlós előre lépés. A szabályosságvizsgálat NEM lépi meg a lépést
+Lepes lp2(0,0);
+lp2.ugrik(2,2);
+cout << d.szabalyos_e(lp2); // "1",  szabályos ugrás, egy saját bábut (1,1) átlós előre átugrás. 
+d.uj_babu(1,3);
+lp2.ugrik(0,4); // lp2 ugrássorozat folytatódik
+cout << d.szabalyos_e(lp2); // "1",  szabályos ugrássorozat, az (1,1)-et átugorva (2,2)-re, onnan (1,3)-at átugorva (0,4)-re érkezünk 
+d.meglep(lp); // az lp lépés megtétele
+cout << d.szabalyos_e(lp2); // "0",  szabálytalan ugrássorozat, az (1,1)-et átugorva juthatnánk (2,2)-re, de az (1,1)-en már nincs bábu
+Lepes lp3(2,2);
+lp3.ugrik(3,3); //szándékosan hibás lépés
+cout << d.szabalyos_e(lp3); // "0",  szabálytalan ugrás a szomszéd mező, valamit át kéne ugrani
+
+</tt></pre>
+
+<p>
+Az érvényességhez tehát az alábbiaknak <b>kell teljesülniük</b>
+<li> A lépések szabályosságának kiírása működjön jól bármely időpillanatban. Hibának számít, ha nincs bábu a kezdőpozíción, nincs egyetlen lépés/ugrás sem benne, illetve a fenti szabályoknak nem felelnek meg a koordináták
+<li> A lépések sorozatot alkothatnak, és minden lehetséges ugrássorozatnak megalkothatónak kell lennie.
+<li> Az új bábu lerakásánál ellenőrizni kell, hogy valid koordinátát adtak-e meg, pl. (0,1) nem valid.
+<li> A lépéseket érvényesíteni kell tudni. Hibás lépés érvényesítésének hibaüzenetet kell adnia.
+<li> A fejlesztés és tesztelés megkönnyítésére egy a pályát (karakterekből) megjelenítő műveletet is kell írni.
+<li> Rendhagyó módon az ugrások sorozatának reprezentációja kötött, std::list a kötelezően használandó konténer
+
+<p>
+Az érvényességhez NEM szükséges interaktivitás, menü, grafikus felület. Érdemes inkább olyan main() függvényt mutatni, amivel tesztelhető az adatszerkezet működésének helyessége.
+
+
+<h3> b) A csapatok </h3>
+
+A bábuknál lehessen megadni, hogy melyik játékoshoz tartoznak. Ennek a következménye, hogy az ellenfél bábuit le lehet ütni a fentebb leírt szabályok szerint. Ha c) feladatot is csinálod, a szabályosság ellenőrzésénél ügyelj az ellenfél bábuinak többszöri átugrásának kérdésére, a maxpontszámhoz szükséges.
+
+<h3> c) A dámák </h3>
+
+Ha egy bábu eléri a pálya átellenben levő sorát (csak alapfeladatnál a 7-es sort, b) feladatnál az adott játékossal szembeni sort), dámává változik, és léphet/ugorhat visszafelé is. Dámává változni ugrássorozat közben is lehet, tehát ha a sorozatban egy ugrás eredményeképpen az utolsó sorba kerül a bábu, akár tovább is ugorhat visszafelé, betartva azt a szabályt is, hogy pont oda nem ugorhat vissza ahonnan közvetlenül ugrott. Köröket képes ugrani a már dáma bábu, tehát van olyan, hogy akár pont ott fejezi be a lépést ahonnan indult, esetleg leütve egy vagy több ellenfelet ( b) rész megoldása esetén)
+
+<h2> Pontozás </h2>
+
+A ZH érvényes, ha az 1.feladat a) része működik. A tökéletes a) b) és c) feladatrészek megoldásai 10+10+10 pontot érnek, +10 pont kapható a félévben tanult kódminsőget illető nyelvi elemek használatáért (pl. láthatóságszabályozás), ezt felülről korlátozza a funkcióra kapott összpontszám.
+10 pont szerezhető a kiegészítős feladatból. 10 pontot ér a grafika. Ez összesen 60 pont.
+
+</body>
